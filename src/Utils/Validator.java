@@ -1,5 +1,7 @@
 package Utils;
 
+import Enums.Priority;
+
 public class Validator
 {
 
@@ -70,6 +72,37 @@ public class Validator
             throw new IllegalArgumentException("ERRO: Nome muito grande.");
         }
 
+        return true;
+    }
+
+    public static boolean validateTitle(String title) {
+
+        if(title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("ERRO: Titulo deve ser preenchido.");
+        }
+
+        if(title.length() < 3) {
+            throw new IllegalArgumentException("ERRO: Titulo muito pequeno.");
+        }
+
+        if(title.length() > 100) {
+            throw new IllegalArgumentException("ERRO: Titulo muito grande.");
+        }
+
+        return true;
+    }
+
+    public static boolean validateDescription(String description) {
+        if(description == null || description.isEmpty()) {
+            throw new IllegalArgumentException("ERRO: O campo Descrição deve ser preenchido.");
+        }
+        return true;
+    }
+
+    public static boolean validatePriority(Priority priority) {
+        if(priority == null || priority.isEmpty()) {
+            throw new IllegalArgumentException("ERRO: A prioridade deve ser preenchido.");
+        }
         return true;
     }
 }

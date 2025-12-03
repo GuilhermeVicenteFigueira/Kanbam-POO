@@ -46,6 +46,7 @@ public class User {
     }
 
     public void setPassword(String password) {
+
         if(!Validator.validatePassword(password)) {
             throw  new IllegalArgumentException("Password Invalido");
         }
