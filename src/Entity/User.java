@@ -1,12 +1,15 @@
 package Entity;
 
 import Utils.Validator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
-    String name;
-    String email;
-    String password;
-    Integer id;
+    private String name;
+    private String email;
+    private String password;
+    private Integer id;
+    private List<Tesk> tesks = new ArrayList<>();
 
     public User(String name, String email, String password, Integer id) {
         this.name = name;
@@ -20,11 +23,7 @@ public class User {
     }
 
     public void setName(String name) {
-
-        if(!Validator.validateName(name)) {
-            throw  new IllegalArgumentException("Nome Invalido");
-        }
-
+        Validator.validateName(name);
         this.name = name;
     }
 
@@ -33,11 +32,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-
-        if(!Validator.validateEmail(email)) {
-            throw  new IllegalArgumentException("Email Invalido");
-        }
-
+        Validator.validateEmail(email);
         this.email = email;
     }
 
@@ -46,12 +41,24 @@ public class User {
     }
 
     public void setPassword(String password) {
-
-        if(!Validator.validatePassword(password)) {
-            throw  new IllegalArgumentException("Password Invalido");
-        }
-
+        Validator.validatePassword(password);
         this.password = password;
+    }
+
+    public List<Tesk> getTesks() {
+        return tesks;
+    }
+
+    public void addTesk(Tesk tesk){
+        if(tesk == null){
+            throw  new IllegalArgumentException("Tesk Não pode ser vazio");
+        }
+        tesk.setUser(this);
+        this.tesks.add(tesk);
+    }
+
+    public Integer getId() {
+        return id;
     }
 
 }

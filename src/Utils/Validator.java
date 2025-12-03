@@ -1,5 +1,6 @@
 package Utils;
 
+import Entity.User;
 import Enums.Priority;
 
 public class Validator
@@ -100,7 +101,7 @@ public class Validator
     }
 
     public static boolean validatePriority(Priority priority) {
-        if(priority == null || priority.isEmpty()) {
+        if(priority == null) {
             throw new IllegalArgumentException("ERRO: A prioridade deve ser preenchido.");
         }
         return true;
