@@ -1,26 +1,31 @@
 package Entity;
 
-public class Usuario {
-    String nome;
+import Utils.Validator;
+
+public class User {
+    String name;
     String email;
-    String senha;
+    String password;
     Integer id;
 
-    public Usuario(String nome, String email, String senha, Integer id) {
-        this.nome = nome;
+    public User(String name, String email, String password, Integer id) {
+        this.name = name;
         this.email = email;
-        this.senha = senha;
+        this.password = password;
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        if(nome == null) {
-            
+    public void setName(String name) {
+
+        if(!Validator.validateName(name)) {
+            throw  new IllegalArgumentException("Nome Invalido");
         }
+
+        this.name = name;
     }
 
     public String getEmail() {
@@ -29,14 +34,23 @@ public class Usuario {
 
     public void setEmail(String email) {
 
+        if(!Validator.validateEmail(email)) {
+            throw  new IllegalArgumentException("Email Invalido");
+        }
+
+        this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
+    public void setPassword(String password) {
+        if(!Validator.validatePassword(password)) {
+            throw  new IllegalArgumentException("Password Invalido");
+        }
 
+        this.password = password;
     }
 
 }

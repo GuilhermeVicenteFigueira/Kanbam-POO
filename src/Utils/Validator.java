@@ -3,7 +3,7 @@ package Utils;
 public class Validator
 {
 
-    public static void validateEmail(String email)
+    public static boolean  validateEmail(String email)
     {
 
         if(email == null || email.isEmpty()) {
@@ -27,9 +27,10 @@ public class Validator
             throw new IllegalArgumentException("ERRO: Email deve conter @");
         }
 
+        return true;
     }
 
-    public static void validatePassword(String password) {
+    public static boolean  validatePassword(String password) {
 
         if(password == null || password.isEmpty()) {
             throw new IllegalArgumentException("ERRO: Senha não pode ser vazia.");
@@ -47,9 +48,10 @@ public class Validator
             throw new IllegalArgumentException("ERRO: A senha deve conter caracter maisculos, minusculo, caracter especial e numeros.");
         }
 
+        return true;
     }
 
-    public static void validateName(String name)
+    public static boolean validateName(String name)
     {
 
         if(name == null || name.isEmpty()) {
@@ -68,5 +70,6 @@ public class Validator
             throw new IllegalArgumentException("ERRO: Nome muito grande.");
         }
 
+        return true;
     }
 }
