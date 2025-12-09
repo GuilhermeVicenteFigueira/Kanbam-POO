@@ -1,19 +1,24 @@
 package Entity;
 
 import Enums.Priority;
+import Enums.Status;
 import Utils.Validator;
 
 public class Tesk {
-    String title;
-    String description;
-    Priority priority;
-    User user;
+    private Integer id;
+    private String title;
+    private String description;
+    private Priority priority;
+    private User user;
+    private Status status;
 
-    public Tesk(String description, String title, Priority priority, User user) {
-        this.description = description;
+    public Tesk(Integer id, String title, String description, Priority priority, User user, Status status) {
+        this.id = id;
         this.title = title;
+        this.description = description;
         this.priority = priority;
         this.user = user;
+        this.status = status;
     }
 
     public String getDescription() {
@@ -52,6 +57,17 @@ public class Tesk {
             System.err.println("AVISO: A atividade não foi atribuido a ninguem");
         }
         this.user = user;
+    }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
