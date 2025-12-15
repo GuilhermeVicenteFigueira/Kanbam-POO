@@ -1,88 +1,132 @@
 package Service;
+
 import Entity.Tesk;
 import Entity.User;
 import Enums.Priority;
 import Enums.Status;
 import Utils.Validator;
-import com.sun.source.tree.UsesTree;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class TeskManeger  {
+public class TeskManeger {
 
     private List<Tesk> tesks;
 
-    public Tesk createTesk(Integer id,String title, String description, Priority priority, User user, Status status) {
+
+    public TeskManeger() {
+        this.tesks = new ArrayList<>();
+    }
+
+    public Tesk createTesk(
+            Integer id,
+            String title,
+            String description,
+            User user,
+            Status status,
+            Priority priority
+    ) {
         Validator.validateTitle(title);
         Validator.validateDescription(description);
         Validator.validatePriority(priority);
 
-        if(user == null) {
-            throw new IllegalArgumentException("Tesk não pode ter um usario vazio");
+        if (user == null) {
+            throw new IllegalArgumentException("Tesk não pode ter um usuário vazio");
         }
 
-        Tesk tesk = new Tesk(id,title,description,priority,user,status);
+        Tesk tesk = new Tesk(id, title, description, priority, user, status);
+        tesks.add(tesk);
+        System.out.println("Tesk adicionado com sucesso");
 
         return tesk;
     }
 
     public void nextStage(Integer id) {
-        Integer count = 1;
-
-        if(id == null) {
-            throw  new IllegalArgumentException("Id vazio!");
+        if (id == null) {
+            throw new IllegalArgumentException("Id vazio!");
         }
 
-        for(Tesk tesk : tesks) {
+        for (Tesk tesk : tesks) {
+            if (id.equals(tesk.getId())) {
 
-            if(id == tesk.getId()) {
+                switch (tesk.getStatus()) {
+                    case GETTING_STARTED:
+                        tesk.setStatus(Status.PENDING);
+                        break;
 
-                if(count == 1) {
-                    tesk.setStatus(Status.GETTING_STARTED);
-                    count++;
-                } else if (count == 2) {
-                    count++;
-                    tesk.setStatus(Status.PENDING);
-                } else if(count == 3) {
-                    count++;
-                    tesk.setStatus(Status.FINISHED);
+                    case PENDING:
+                        tesk.setStatus(Status.FINISHED);
+                        break;
+
+                    default:
+                        System.out.println("Task já finalizada");
                 }
-
+                return;
             }
         }
     }
 
     public void deleteTesk(Integer id) {
-        if(id == null) {
+        if (id == null) {
             throw new IllegalArgumentException("Id vazio!");
         }
 
-        for(Tesk tesk : tesks) {
-            if(id == tesk.getId()) {
-                tesks.remove(tesk);
+        Iterator<Tesk> iterator = tesks.iterator();
 
+        while (iterator.hasNext()) {
+            Tesk tesk = iterator.next();
+            if (id.equals(tesk.getId())) {
+                iterator.remove();
+                System.out.println("Deletado com sucesso!");
+                return;
             }
         }
     }
 
-    public void editTesk(Integer id, String title, String description, Priority priority, User user) {
-        if(id == null) {
+    public void editTesk(
+            Integer id,
+            String title,
+            String description,
+            Priority priority,
+            Status status,
+            User user
+    ) {
+        if (id == null) {
             throw new IllegalArgumentException("Id vazio!");
         }
 
-        for(Tesk tesk : tesks) {
-            if(id == tesk.getId()) {
-                tesk.setDescription(description);
+        for (Tesk tesk : tesks) {
+            if (id.equals(tesk.getId())) {
                 tesk.setTitle(title);
-                tesk.setUser(user);
+                tesk.setDescription(description);
                 tesk.setPriority(priority);
+                tesk.setUser(user);
+                tesk.setStatus(status);
+                System.out.println("Editado com sucesso!");
+                return;
             }
         }
     }
 
-    public List<Tesk> listTesks() {
-        return tesks;
+    public void listTesks() {
+        if (tesks.isEmpty()) {
+            System.out.println("Lista vazia");
+            return;
+        }
+
+        for (Tesk tesk : tesks) {
+
+            System.out.println("LISTA DE TESKS");
+
+            System.out.println(tesk.getId());
+            System.out.println(tesk.getTitle());
+            System.out.println(tesk.getDescription());
+            System.out.println(tesk.getPriority());
+            System.out.println(tesk.getUser().getName());
+            System.out.println(tesk.getStatus());
+
+            System.out.println("-------------------------");
+        }
     }
-
-
 }

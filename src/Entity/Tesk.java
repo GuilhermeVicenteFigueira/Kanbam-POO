@@ -21,6 +21,8 @@ public class Tesk {
         this.status = status;
     }
 
+
+
     public String getDescription() {
         return description;
     }
@@ -57,6 +59,10 @@ public class Tesk {
             System.err.println("AVISO: A atividade não foi atribuido a ninguem");
         }
         this.user = user;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public void setStatus(Status status) {
